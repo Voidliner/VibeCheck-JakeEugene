@@ -19,6 +19,10 @@ app.use(cors());
 // This allows Express to read JSON bodies (used for POST requests).
 app.use(express.json());
 
+const surprises = [
+  "I love you.",
+  "I like you.",
+];
 // Data pools (random picks). You can customize these.
 const fortunes = [
   "You will debug it in 5 minutes... after 55 minutes of panic.",
@@ -41,6 +45,11 @@ const vibeMap = {
 
 // Smash counter (stored in memory for now)
 let smashes = 0;
+
+app.get("/api/surprise", (req, res) => {
+  const pick = surprises[Math.floor(Math.random() * surprises.length)];
+  res.json({ surprise: pick });
+});
 
 // GET /api/fortune -> returns one random fortune
 app.get("/api/fortune", (req, res) => {
